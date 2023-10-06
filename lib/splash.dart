@@ -15,7 +15,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(seconds: 2), () {
+    Timer(const Duration(seconds: 3), () {
       Navigator.of(context).pushReplacement(MaterialPageRoute(
         builder: (context) => const LoginPage(),
       ));
@@ -34,7 +34,7 @@ class _SplashScreenState extends State<SplashScreen> {
               height: 20,
             ),
             Text(
-              "Unsoed App",
+              "To Do List",
               style: TextStyle(
                 fontSize: 18.0,
                 color: Colors.black,
@@ -42,7 +42,7 @@ class _SplashScreenState extends State<SplashScreen> {
               textAlign: TextAlign.center,
             ),
             Text(
-              "©Universitas Jenderal Soedirman",
+              "Rochmat Mulyo Sugihono",
               style: TextStyle(
                 fontSize: 14.0,
                 color: Colors.black,

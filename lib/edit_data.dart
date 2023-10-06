@@ -17,17 +17,17 @@ class EditData extends StatefulWidget {
 }
 
 class _EditDataState extends State<EditData> {
-  final namaController = TextEditingController();
-  final jurusanController = TextEditingController();
+  final pekerjaanController = TextEditingController();
+  final statusController = TextEditingController();
 
   String url = Platform.isAndroid
       ? 'http://10.0.2.2/uts/index.php'
       : 'http://localhost/uts/index.php';
 
-  Future<dynamic> updateData(String id, String nama, String jurusan) async {
+  Future<dynamic> updateData(String id, String pekerjaan, String status) async {
     // print("updating");
     Map<String, String> headers = {'Content-Type': 'application/json'};
-    String jsonBody = '{"id":$id,"nama": "$nama", "jurusan": "$jurusan"}';
+    String jsonBody = '{"id":$id,"pekerjaan": "$pekerjaan", "status": "$status"}';
     var response = await http.put(Uri.parse("$url?id=$id"),
         headers: headers, body: jsonBody);
 
@@ -43,8 +43,8 @@ class _EditDataState extends State<EditData> {
     if (response.statusCode == 200) {
       final Map<String, dynamic> data = json.decode(response.body);
       setState(() {
-        namaController.text = data['nama'];
-        jurusanController.text = data['jurusan'];
+        pekerjaanController.text = data['pekerjaan'];
+        statusController.text = data['status'];
       });
     } else {
       return null;
@@ -61,7 +61,7 @@ class _EditDataState extends State<EditData> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Edit Data Mahasiswa'),
+        title: const Text('Edit Data Pekerjaan'),
       ),
       drawer: const SideMenu(),
       body: Container(
@@ -70,26 +70,26 @@ class _EditDataState extends State<EditData> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             TextField(
-              controller: namaController,
+              controller: pekerjaanController,
               decoration: const InputDecoration(
-                hintText: 'Nama Mahasiswa',
+                hintText: 'Nama Pekerjaan',
               ),
             ),
             TextField(
-              controller: jurusanController,
+              controller: statusController,
               decoration: const InputDecoration(
-                hintText: 'Jurusan',
+                hintText: 'status',
               ),
             ),
             ElevatedButton(
-              child: const Text('Edit Mahasiswa'),
+              child: const Text('Edit Pekerjaan'),
               onPressed: () {
-                String nama = namaController.text;
-                String jurusan = jurusanController.text;
+                String pekerjaan = pekerjaanController.text;
+                String status = statusController.text;
 
-                // updateData(widget.id,nama, jurusan);
+                // updateData(widget.id,pekerjaan, status);
 
-                updateData(widget.id, nama, jurusan).then((result) {
+                updateData(widget.id, pekerjaan, status).then((result) {
                   print(result);
                   if (result['pesan'] == 'berhasil') {
                     showDialog(

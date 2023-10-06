@@ -18,10 +18,10 @@ class ListData extends StatefulWidget {
 }
 
 class _ListDataState extends State<ListData> {
-  List<Map<String, String>> dataMahasiswa = [];
+  List<Map<String, String>> dataPekerjaan = [];
   String url = Platform.isAndroid
-      ? 'http://10.0.2.2/Flutter/index.php'
-      : 'http://localhost/Flutter/index.php';
+      ? 'http://10.0.2.2/uts/index.php'
+      : 'http://localhost/uts/index.php';
   @override
   void initState() {
     super.initState();
@@ -33,10 +33,10 @@ class _ListDataState extends State<ListData> {
     if (response.statusCode == 200) {
       final List<dynamic> data = json.decode(response.body);
       setState(() {
-        dataMahasiswa = List<Map<String, String>>.from(data.map((item) {
+        dataPekerjaan = List<Map<String, String>>.from(data.map((item) {
           return {
-            'nama': item['nama'] as String,
-            'jurusan': item['jurusan'] as String,
+            'pekerjaan': item['pekerjaan'] as String,
+            'status': item['status'] as String,
             'id': item['id'] as String,
           };
         }));
@@ -74,12 +74,12 @@ class _ListDataState extends State<ListData> {
           ),
           Expanded(
           child: ListView.builder(
-            itemCount: dataMahasiswa.length,
+            itemCount: dataPekerjaan.length,
             itemBuilder: (context, index) {
-              var id = dataMahasiswa[index]['id'];
+              var id = dataPekerjaan[index]['id'];
               return ListTile(
-                title: Text(dataMahasiswa[index]['nama']!),
-                subtitle: Text('Jurusan: ${dataMahasiswa[index]['jurusan']}'),
+                title: Text(dataPekerjaan[index]['pekerjaan']!),
+                subtitle: Text('status: ${dataPekerjaan[index]['status']}'),
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
@@ -87,7 +87,7 @@ class _ListDataState extends State<ListData> {
                       icon: Icon(Icons.visibility),
                       onPressed: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => DetailMahasiswa(id: id)));
+                            builder: (context) => DetailPekerjaan(id: id)));
                       },
                     ),
                     IconButton(

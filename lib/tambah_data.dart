@@ -15,16 +15,16 @@ class TambahData extends StatefulWidget {
 }
 
 class _TambahDataState extends State<TambahData> {
-  final namaController = TextEditingController();
-  final jurusanController = TextEditingController();
+  final pekerjaanController = TextEditingController();
+  final statusController = TextEditingController();
 
-  Future postData (String nama, String jurusan)async{
+  Future postData (String pekerjaan, String status)async{
     String url = Platform.isAndroid
-        ? 'http://10.0.2.2/Flutter/index.php'
-        : 'http://localhost/Flutter/index.php';
+        ? 'http://10.0.2.2/uts/index.php'
+        : 'http://localhost/uts/index.php';
 
         Map<String, String> headers = {'Content-type':'application/json'};
-        String jsonBody = '{"nama":"$nama", "jurusan": "$jurusan"}';
+        String jsonBody = '{"pekerjaan":"$pekerjaan", "status": "$status"}';
         var response = await http.post(
           Uri.parse(url),
           headers: headers,
@@ -43,7 +43,7 @@ class _TambahDataState extends State<TambahData> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Tambah Data Mahasiswa'),
+        title: const Text('Tambah Data Pekerjaan'),
       ),
       drawer: const SideMenu(),
       body: Container(
@@ -52,31 +52,31 @@ class _TambahDataState extends State<TambahData> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             TextField(
-              controller: namaController,
+              controller: pekerjaanController,
               decoration: const InputDecoration(
-                hintText: 'Nama Mahasiswa',
+                hintText: 'nama Pekerjaan',
               ),
             ),
             TextField(
-              controller: jurusanController,
+              controller: statusController,
               decoration: const InputDecoration(
-                hintText: 'Jurusan',
+                hintText: 'status',
               ),
             ),
             ElevatedButton(
-              child: const Text('Tambah Mahasiswa'),
+              child: const Text('Tambah Pekerjaan'),
               onPressed: () {
-                String nama = namaController.text;
-                String jurusan = jurusanController.text;
-                // print(nama);
-                postData(nama, jurusan).then((result) {
+                String pekerjaan = pekerjaanController.text;
+                String status = statusController.text;
+                // print(pekerjaan);
+                postData(pekerjaan, status).then((result) {
                   //print(result['pesan']);
                   if (result['pesan'] == 'berhasil') {
                     print("hello");
                     showDialog(
                         context: context,
                         builder: (context) {
-                          //var namauser2 = namauser;
+                          //var pekerjaanuser2 = pekerjaanuser;
                           return AlertDialog(
                             title: const Text('Data berhasil di tambah'),
                             content: const Text('ok'),

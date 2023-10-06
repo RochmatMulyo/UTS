@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:uts/splash.dart';
 import 'package:flutter/material.dart';
+import 'package:uts/tambah_data.dart';
 
 void main() {
   runApp(const MyApp());
